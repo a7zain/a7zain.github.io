@@ -31,6 +31,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Landing layout: hero centered in viewport, footer pinned at end. */
+.landing-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 a {
   color: var(--accent);
   text-decoration: none;
@@ -94,6 +101,16 @@ a:hover {
 
 .nav-links a:hover {
   color: var(--text);
+}
+
+.nav-links a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+}
+
+.nav-links a[aria-current="page"]:hover {
+  color: var(--accent);
 }
 
 /* ---------- Hero ---------- */
@@ -163,6 +180,79 @@ a:hover {
   margin: 0;
 }
 
+/* ---------- Landing page (centered hero + three buttons) ---------- */
+
+.landing {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+.landing-hero {
+  max-width: 760px;
+  width: 100%;
+  text-align: center;
+}
+
+.landing-hero h1 {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+  color: var(--text);
+}
+
+.landing-hero .tagline {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 36rem;
+  margin: 0 auto 1.25rem;
+}
+
+.landing-hero .location {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 3rem;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 720px;
+  justify-content: center;
+}
+
+.landing-button {
+  flex: 1;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1.25rem 2.5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.landing-button:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
 /* ---------- Sections ---------- */
 
 .section {
@@ -189,7 +279,8 @@ a:hover {
   margin: 0 0 1.5rem;
 }
 
-.section h2 {
+.section h2,
+.section-title {
   font-family: var(--serif);
   font-weight: 600;
   font-size: 2.5rem;
@@ -197,6 +288,13 @@ a:hover {
   letter-spacing: -0.01em;
   margin: 0 0 2rem;
   color: var(--text);
+}
+
+/* Section-as-page: top of a dedicated route. No border-top (sticky nav
+   already has its own bottom rule); slightly less aggressive padding. */
+.section.section--page {
+  border-top: none;
+  padding-top: 5rem;
 }
 
 .placeholder {
@@ -245,20 +343,19 @@ a:hover {
 
   .nav-inner {
     padding: 0 1rem;
-    justify-content: center;
   }
 
   .nav-brand {
-    display: none;
+    font-size: 0.85rem;
   }
 
   .nav-links {
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .nav-links a {
     font-size: 0.7rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
   .hero {
@@ -270,12 +367,33 @@ a:hover {
     font-size: 1.2rem;
   }
 
+  .landing {
+    padding: 3rem 1.25rem;
+  }
+
+  .landing-hero .tagline {
+    font-size: 1.15rem;
+  }
+
+  .landing-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 22rem;
+  }
+
+  .landing-button {
+    flex: none;
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+
   .section {
     padding: 4rem 1.25rem;
     min-height: auto;
   }
 
-  .section h2 {
+  .section h2,
+  .section-title {
     font-size: 2rem;
   }
 
@@ -284,13 +402,26 @@ a:hover {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+  .nav-inner {
+    padding: 0 0.85rem;
+  }
+
+  .nav-brand {
+    font-size: 0.78rem;
+  }
+
   .nav-links {
-    gap: 0.9rem;
+    gap: 0.7rem;
   }
 
   .nav-links a {
     font-size: 0.65rem;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links a[aria-current="page"] {
+    border-bottom-width: 1px;
+    padding-bottom: 3px;
   }
 }
