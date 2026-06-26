@@ -11,6 +11,7 @@
   --muted:       #9C958A;   /* warm grey */
   --accent:      #C99A6B;   /* warm sand */
   --accent-hi:   #DCB489;   /* sand, hover */
+  --accent-rgb:  201, 154, 107;  /* --accent in rgb form, for opacity tints */
   --rule:        rgba(242, 237, 228, 0.12);
   --rule-soft:   rgba(242, 237, 228, 0.06);
 
@@ -505,6 +506,254 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   letter-spacing: 0.04em;
   color: var(--muted);
   margin: 0;
+}
+
+/* ============================================================
+   PASS 3 — native HTML/CSS components
+   Depth/emphasis intensity is derived from the existing --accent
+   (via --accent-rgb opacity tints) and neutral tokens. No new
+   colors, no new fonts.
+   ============================================================ */
+
+/* ---------- Lifecycle ribbon ---------- */
+.ribbon {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.ribbon-seg {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 1rem 0.9rem 1.1rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--bg-raised);
+}
+.ribbon-phase {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.25;
+  color: var(--text);
+}
+.ribbon-depth {
+  align-self: flex-start;
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.18rem 0.5rem;
+}
+.ribbon-tool {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* Depth of involvement — accent intensity steps down strong → faint → outline. */
+.ribbon-seg--handson {
+  background: rgba(var(--accent-rgb), 0.22);
+  border-color: rgba(var(--accent-rgb), 0.55);
+}
+.ribbon-seg--handson .ribbon-depth {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+.ribbon-seg--contributed {
+  background: rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.32);
+}
+.ribbon-seg--contributed .ribbon-depth {
+  background: rgba(var(--accent-rgb), 0.16);
+  border-color: rgba(var(--accent-rgb), 0.4);
+  color: var(--accent-hi);
+}
+.ribbon-seg--exposure {
+  background: rgba(var(--accent-rgb), 0.05);
+  border-color: var(--rule);
+}
+.ribbon-seg--exposure .ribbon-depth {
+  color: var(--accent);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+.ribbon-seg--context {
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--rule);
+}
+.ribbon-seg--context .ribbon-phase { color: var(--muted); }
+
+.ribbon-caption,
+.timeline-caption {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0.9rem 0 0;
+}
+
+/* ---------- Lineage timeline ---------- */
+.timeline {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+.timeline-node {
+  position: relative;
+  text-align: center;
+  padding: 1.9rem 0.35rem 0;
+}
+/* connecting line — trailing side (this node → next) */
+.timeline-node::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: var(--rule);
+}
+.timeline-node:last-child::before { display: none; }
+/* SGS1 → SHMS: dashed accent, signalling SHMS extends the record */
+.timeline-node--bridge::before {
+  background: none;
+  border-top: 2px dashed var(--accent);
+  height: 0;
+}
+/* node dot */
+.timeline-node::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--muted);
+  z-index: 1;
+}
+.timeline-year {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.timeline-name {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: var(--text);
+}
+.timeline-desc {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+/* current / added entry — SHMS */
+.timeline-node--current::after {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.18);
+}
+.timeline-node--current .timeline-year { color: var(--accent); }
+.timeline-node--current .timeline-name { color: var(--accent-hi); }
+
+/* ---------- Competency band ---------- */
+.tagband {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.tag {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  transition: border-color 160ms ease, color 160ms ease;
+}
+.tag:hover {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  color: var(--accent-hi);
+}
+
+/* ---------- Affiliations strip ---------- */
+.affil {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+.affil li { display: inline-flex; align-items: center; }
+.affil li::after {
+  content: "·";
+  margin: 0 0.7rem;
+  color: var(--muted);
+  opacity: 0.6;
+}
+.affil li:last-child::after { content: none; }
+
+/* Ribbon + timeline reflow on narrow screens (no squashing). */
+@media (max-width: 700px) {
+  .ribbon { grid-template-columns: 1fr; gap: 0.6rem; }
+
+  .timeline { display: block; margin-top: 1.25rem; }
+  .timeline-node {
+    text-align: left;
+    padding: 0 0 1.6rem 1.75rem;
+  }
+  .timeline-node:last-child { padding-bottom: 0; }
+  .timeline-node::after { top: 2px; left: 0; transform: none; }
+  .timeline-node::before {
+    top: 6px;
+    bottom: -1.6rem;
+    left: 6px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    background: var(--rule);
+  }
+  .timeline-node:last-child::before { display: none; }
+  .timeline-node--bridge::before {
+    background: none;
+    border-top: none;
+    border-left: 2px dashed var(--accent);
+    width: 0;
+  }
 }
 
 /* ---------- Mobile ---------- */

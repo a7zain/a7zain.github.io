@@ -48,8 +48,47 @@
     <div class="prose">
       <p>Before I joined it, I studied where the Saudi program came from. It runs from amateur-radio microsatellites in 2000 to hyperspectral Earth observation to a cislunar science mission — and it crossed three launch powers to get there: Russian Dnepr rockets, a Chinese Long March, and finally an American Artemis flight. The cooperation with NASA on SaudiSat-4 in 2014 was the first thread of a relationship that SHMS, the mission I helped qualify, completes.</p>
     </div>
-    <!-- PASS 3: lineage timeline · PASS 4: KACST History in Space photo -->
-    <p class="pass-ph">Lineage timeline (pass 3), KACST History in Space photo (pass 4)</p>
+    <!-- Lineage timeline (pass 3) -->
+    <ol class="timeline">
+      <li class="timeline-node">
+        <span class="timeline-year">2000</span>
+        <span class="timeline-name">SaudiSat 1A/1B</span>
+        <span class="timeline-desc">first Saudi satellite</span>
+      </li>
+      <li class="timeline-node">
+        <span class="timeline-year">2004</span>
+        <span class="timeline-name">SaudiSat 2</span>
+        <span class="timeline-desc">first Earth observation</span>
+      </li>
+      <li class="timeline-node">
+        <span class="timeline-year">2007</span>
+        <span class="timeline-name">SaudiSat 3</span>
+        <span class="timeline-desc">first remote sensing</span>
+      </li>
+      <li class="timeline-node">
+        <span class="timeline-year">2014</span>
+        <span class="timeline-name">SaudiSat 4</span>
+        <span class="timeline-desc">science payload with NASA</span>
+      </li>
+      <li class="timeline-node">
+        <span class="timeline-year">2018</span>
+        <span class="timeline-name">SaudiSat 5A/5B</span>
+        <span class="timeline-desc">electro-optical EO</span>
+      </li>
+      <li class="timeline-node timeline-node--bridge">
+        <span class="timeline-year">2021</span>
+        <span class="timeline-name">SGS1</span>
+        <span class="timeline-desc">first geostationary</span>
+      </li>
+      <li class="timeline-node timeline-node--current" aria-current="true">
+        <span class="timeline-year">2026</span>
+        <span class="timeline-name">SHMS</span>
+        <span class="timeline-desc">first Arab Artemis mission</span>
+      </li>
+    </ol>
+    <p class="timeline-caption">After KACST's "History in Space," which currently ends at 2021.</p>
+    <!-- PASS 4: KACST History in Space photo -->
+    <p class="pass-ph">KACST History in Space photo (pass 4)</p>
   </section>
 
   <section id="earned" class="block">
@@ -64,8 +103,40 @@
     <div class="prose">
       <p>I deliberately sought exposure across the full arc of a satellite program rather than depth in a single box. What follows maps where I worked, and how deeply.</p>
     </div>
-    <!-- PASS 3: lifecycle ribbon -->
-    <p class="pass-ph">Lifecycle ribbon (pass 3)</p>
+    <!-- Lifecycle ribbon (pass 3) -->
+    <div class="ribbon" role="list" aria-label="Depth of involvement across the satellite lifecycle">
+      <div class="ribbon-seg ribbon-seg--handson" role="listitem">
+        <span class="ribbon-phase">Mission analysis</span>
+        <span class="ribbon-depth">Hands-on</span>
+        <span class="ribbon-tool">GMAT · STK</span>
+      </div>
+      <div class="ribbon-seg ribbon-seg--contributed" role="listitem">
+        <span class="ribbon-phase">Systems engineering</span>
+        <span class="ribbon-depth">Contributed</span>
+        <span class="ribbon-tool">requirements · reviews</span>
+      </div>
+      <div class="ribbon-seg ribbon-seg--exposure" role="listitem">
+        <span class="ribbon-phase">Subsystems</span>
+        <span class="ribbon-depth">Exposure</span>
+        <span class="ribbon-tool">ADCS · EPS · Comms</span>
+      </div>
+      <div class="ribbon-seg ribbon-seg--handson" role="listitem">
+        <span class="ribbon-phase">Assembly &amp; integration</span>
+        <span class="ribbon-depth">Hands-on</span>
+        <span class="ribbon-tool">SHMS qualification</span>
+      </div>
+      <div class="ribbon-seg ribbon-seg--handson" role="listitem">
+        <span class="ribbon-phase">Test &amp; qualification</span>
+        <span class="ribbon-depth">Hands-on</span>
+        <span class="ribbon-tool">functional · environmental</span>
+      </div>
+      <div class="ribbon-seg ribbon-seg--context" role="listitem">
+        <span class="ribbon-phase">Launch &amp; operations</span>
+        <span class="ribbon-depth">Context</span>
+        <span class="ribbon-tool">Artemis II</span>
+      </div>
+    </div>
+    <p class="ribbon-caption">Colour intensity marks depth of involvement.</p>
     <div class="prose">
       <p><strong>Mission analysis.</strong> During the cooperative phase I produced a series of mission-analysis studies, working in GMAT, STK, MATLAB, and Copernicus. I modelled a trans-lunar transfer trajectory in GMAT; ran an Earth-observation coverage study over Riyadh; and built a constellation trade study for national coverage, comparing three-, six-, and twelve-satellite architectures against revisit time, coverage fraction, orbital inclination, and altitude to find the point where added satellites stopped buying meaningful revisit. I analyzed ground-station access windows, and developed a communications link budget for a CubeSat downlink across UHF, S-band, and X-band — solving for pass duration, achievable data rate, daily imagery volume, and the best ground-station siting. These were the analyses that taught me to think about a spacecraft as a system of competing budgets before it is ever bent metal.</p>
       <p><strong>Systems engineering and subsystems.</strong> I rotated through the mission teams in two-to-four-week blocks, working alongside engineers in systems, attitude determination and control, electrical power, and communications. In the systems group I worked on requirements and interface definitions, contributed to trade studies, and sat in on design-review gates. In the subsystem rotations I went concrete: sensors and actuators on the ADCS side, battery and solar power budgeting on EPS, and RF band selection and ground-link planning on communications. The point was fluency — to be able to speak each subsystem's language at the interfaces where they meet.</p>
@@ -144,13 +215,40 @@
 
   <section id="competency" class="block">
     <h2 class="block-title">Competencies</h2>
-    <!-- PASS 3: competency tag band -->
-    <p class="pass-ph">Competency tag band (pass 3)</p>
+    <!-- Competency tag band (pass 3) -->
+    <ul class="tagband">
+      <li class="tag">Requirements</li>
+      <li class="tag">Interfaces &amp; ICDs</li>
+      <li class="tag">Verification</li>
+      <li class="tag">Technical budgets</li>
+      <li class="tag">Design reviews</li>
+      <li class="tag">AIT</li>
+      <li class="tag">Environmental qualification</li>
+      <li class="tag">Thermal-vacuum</li>
+      <li class="tag">Vibration</li>
+      <li class="tag">EMC</li>
+      <li class="tag">GMAT</li>
+      <li class="tag">STK</li>
+      <li class="tag">MATLAB</li>
+      <li class="tag">Link budgets</li>
+      <li class="tag">Ground support equipment</li>
+      <li class="tag">Anomaly tracking</li>
+      <li class="tag">NASA standards</li>
+      <li class="tag">Systems engineering</li>
+      <li class="tag">RAIL</li>
+    </ul>
   </section>
 
   <section id="affiliations" class="block">
-    <!-- PASS 3: affiliations strip (no heading) -->
-    <p class="pass-ph">Affiliations strip (pass 3)</p>
+    <!-- Affiliations strip (pass 3, no heading) -->
+    <ul class="affil">
+      <li>King Abdulaziz City for Science and Technology</li>
+      <li>Saudi Space Agency</li>
+      <li>Exobotics</li>
+      <li>NASA Artemis II</li>
+      <li>Rohde &amp; Schwarz</li>
+      <li>University of Colorado Boulder</li>
+    </ul>
   </section>
 
   <p class="back-link"><a href="index.html">&larr; Back to home</a></p>
