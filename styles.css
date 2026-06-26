@@ -352,6 +352,59 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   color: var(--text);
 }
 
+/* ---------- Long-form prose (pass 2) ---------- */
+.prose {
+  font-family: var(--sans);
+}
+.prose p {
+  margin: 0 0 1.3em;
+  color: var(--text);
+  line-height: 1.78;
+}
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { font-weight: 600; color: var(--text); }
+
+/* Spacing where prose meets a deferred placeholder or a card group. */
+.prose + .pass-ph,
+.prose + .artifacts,
+.pass-ph + .prose { margin-top: 1.5rem; }
+
+/* Emphasized standalone statement, set apart from the surrounding prose. */
+.prose-statement {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--accent);
+  margin: 2.25rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--rule);
+}
+
+/* ---------- Artifact cards (prose pass 2 · figures pass 4) ---------- */
+.artifacts {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.artifact {
+  background: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: clamp(1.5rem, 3vw, 2rem);
+}
+.artifact-q {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--text);
+  margin: 0 0 1.1rem;
+}
+.artifact .pass-ph { margin-top: 1.25rem; }
+
 .placeholder {
   font-family: var(--sans);
   font-size: 0.95rem;
