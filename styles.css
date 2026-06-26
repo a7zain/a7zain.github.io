@@ -756,6 +756,81 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   }
 }
 
+/* ============================================================
+   PASS 4 — figures, photos, gallery (wired media)
+   Built from existing tokens. The mission-analysis plots are
+   palette-matched and transparent, so they sit on the raised
+   surface; the radiometer O-record is a light instrument plate.
+   ============================================================ */
+
+.figure { margin: 1.5rem 0 0; }
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--bg-raised);
+}
+.figure--plate img { background: #fff; }
+
+.figure figcaption,
+.photo figcaption,
+.section-hero figcaption,
+.gallery figcaption {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+/* Photographs */
+.photo { margin: 1.5rem 0 0; }
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+/* Section hero image (e.g. SHMS) */
+.section-hero { margin: 1.5rem 0 0; }
+.section-hero img {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+}
+
+/* Figures inside artifact cards */
+.artifact .figure { margin-top: 1.25rem; }
+
+/* Photo gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+.gallery figure { margin: 0; }
+.gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+}
+
+@media (max-width: 700px) {
+  .gallery { grid-template-columns: 1fr; }
+}
+
 /* ---------- Mobile ---------- */
 
 @media (max-width: 860px) {

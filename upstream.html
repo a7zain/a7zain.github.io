@@ -39,8 +39,14 @@
     <div class="prose">
       <p>As Systems Engineer and RAIL Lead on a six-person CU Boulder capstone team, I helped turn the Polarimetric Scanning Radiometer into a mobile platform that drives to field sites and measures radio-frequency interference bleeding into the protected 23.6–24 GHz band — the band weather satellites depend on to read water vapor. As Systems Engineer I owned the seams: the interfaces binding the instrument, towing vehicle, power, timing, and networking into one working system. As RAIL Lead I tracked every engineer's tasks against their subsystem, keeping four disciplines and six people moving in step. We disciplined three drifting onboard clocks to a microsecond GPS reference so every brightness reading landed at the right pointing angle; we found our filter too soft to guarantee it stayed inside the protected band, measured the error honestly at 40 K against a half-Kelvin target, and specified the hyperspectral path forward. It was passive remote sensing — data integrity for Earth observation — before I knew that was the direction I'd take.</p>
     </div>
-    <!-- PASS 4: O-Record figure + field photo -->
-    <p class="pass-ph">O-Record figure + field photo (pass 4)</p>
+    <figure class="photo">
+      <img src="assets/Upstream/radiometer-field.jpg" alt="The Polarimetric Scanning Radiometer mounted as a mobile platform, towed to a field site." loading="lazy">
+      <figcaption>The radiometer as a mobile platform — towed to field sites to map RFI bleeding into the protected 23.6–24 GHz band.</figcaption>
+    </figure>
+    <figure class="figure figure--plate">
+      <img src="assets/orecord.png" alt="Radiometer brightness-temperature scan at 23.8 GHz." loading="lazy">
+      <figcaption>A 23.8 GHz brightness-temperature scan — the radiometer's O-record output.</figcaption>
+    </figure>
   </section>
 
   <section id="background" class="block">
@@ -87,8 +93,6 @@
       </li>
     </ol>
     <p class="timeline-caption">After KACST's "History in Space," which currently ends at 2021.</p>
-    <!-- PASS 4: KACST History in Space photo -->
-    <p class="pass-ph">KACST History in Space photo (pass 4)</p>
   </section>
 
   <section id="earned" class="block">
@@ -155,30 +159,37 @@
         <div class="prose">
           <p>I modelled Walker constellations over Riyadh — circular 600 km orbits at 55° inclination, a 30° sensor reach, propagated across three days — and swept the satellite count. Going from three to six satellites collapses the worst-case revisit gap from a full day to under eight hours. But past six, adding satellites within the same three planes keeps improving mean revisit while the worst-case gap stalls near six and a half hours. The worst case isn't set by how many satellites you fly — it's set by how you arrange them: redistributing the same twelve satellites from three planes to four nearly halves the worst-case gap. Architecture beats headcount. (Coverage of a single point target sits under one percent, which is expected for narrow-cone point-target imaging — the meaningful metric is the revisit gap, not coverage fraction.)</p>
         </div>
-        <!-- PASS 4: constellation-revisit.png -->
-        <p class="pass-ph">Figure: constellation-revisit.png (pass 4)</p>
+        <figure class="figure">
+          <img src="assets/constellation-revisit.png" alt="Revisit gap over Riyadh versus constellation size, and worst-case gap by number of orbital planes." loading="lazy">
+        </figure>
       </article>
       <article class="artifact">
         <h3 class="artifact-q">Can one CubeSat send home everything it sees?</h3>
         <div class="prose">
           <p>I built a three-band downlink budget for a 600 km CubeSat to a Riyadh ground station — free-space loss at the worst-case slant range, realistic antennas and noise figures, a 3 dB margin. Every band closes the link; that isn't the hard part. What separates them is bandwidth, and that's why a CubeSat flies three radios: UHF for telemetry, S-band for commands, and X-band — the only pipe wide enough at about 90 Mbps — for imagery. Resolving the link across a full pass, I let the modulation adapt from QPSK at the horizon to 16APSK near zenith, carrying 80 Mbps low and 133 Mbps overhead. Then I balanced that against the camera: a single Riyadh station supports roughly 34 minutes of imaging a day. For watching Saudi Arabia that's comfortable headroom — the link is oversized and revisit is the real constraint. Push the same satellite to commercial global tasking and one station can't keep up; you need four, or onboard storage and a downlink schedule. The radio was never the hard part. Knowing which constraint actually binds — that's the engineering.</p>
         </div>
-        <!-- PASS 4: link-budget.png -->
-        <p class="pass-ph">Figure: link-budget.png (pass 4)</p>
+        <figure class="figure">
+          <img src="assets/link-budget.png" alt="Adaptive X-band downlink rate across one pass, and imaging demand versus ground-station need." loading="lazy">
+        </figure>
       </article>
       <article class="artifact">
         <h3 class="artifact-q">How do you reach the Moon's neighbourhood, and what does speed cost?</h3>
         <div class="prose">
           <p>I modelled a trans-lunar injection with patched conics — the first-order method you reach for before any high-fidelity tool. From a 600 km parking orbit, the injection burn is about 3.0 km/s and the coast out to lunar distance takes roughly five days. Then I swept the trade: you can cut the trip to two days, but the ΔV climbs sharply for the privilege, so the slow Hohmann-type transfer is the economical one. One detail stuck with me — you reach lunar distance crawling at 0.2 km/s while the Moon races past at 1.0, so arriving and staying are entirely different problems. It's a two-body approximation, not a flight trajectory — but it's the analysis that builds the intuition, and the satellite I helped qualify went on to fly cislunar for real.</p>
         </div>
-        <!-- PASS 4: translunar.png -->
-        <p class="pass-ph">Figure: translunar.png (pass 4)</p>
+        <figure class="figure">
+          <img src="assets/translunar.png" alt="Patched-conic trans-lunar transfer trajectory and the delta-V cost of a faster transfer." loading="lazy">
+        </figure>
       </article>
     </div>
   </section>
 
   <section id="shms" class="block">
     <h2 class="block-title">SHMS</h2>
+    <figure class="section-hero">
+      <img src="assets/Upstream/shms-satellite.jpg" alt="The SHMS 12U CubeSat, circular sensor apertures facing forward, with the Saudi flag behind." loading="lazy">
+      <figcaption>SHMS — Saudi Arabia's first dedicated space-weather mission, a 12U CubeSat.</figcaption>
+    </figure>
     <div class="prose">
       <p>The satellite was SHMS (<span lang="ar">شمس</span>, "the Sun") — a 12U CubeSat and Saudi Arabia's first dedicated space-weather mission, developed by Saudi national talent under the National Industrial Development and Logistics Program as part of a deliberate effort to localize space technology and put young Saudi engineers onto real flight hardware.</p>
       <p>Its science is the Sun's reach into the space environment. From a highly elliptical orbit that carries it far beyond the shelter of Earth's magnetic field, SHMS studies four things — space radiation, solar X-rays, Earth's magnetic field, and solar energetic particles — the four domains the mission patch marks with four stars. That data protects the systems space weather quietly threatens: communications, aviation, navigation.</p>
@@ -189,8 +200,10 @@
       <p>On 4 April 2026, SHMS launched aboard NASA's Space Launch System on Artemis II — the most powerful rocket ever flown, and the first crewed voyage around the Moon in more than fifty years. It rode inside the Orion Stage Adapter, the ring beneath the Orion spacecraft that carries secondary payloads and releases them after separation, and deployed from there into space. With it, Saudi Arabia became the first Arab nation to fly a mission under the Artemis program. In NASA's records the satellite carries the designation SWC-1.</p>
       <p>I had spent the autumn qualifying the design. Watching it leave the pad was the payoff.</p>
     </div>
-    <!-- PASS 4: satellite hero + facility photos -->
-    <p class="pass-ph">Satellite hero + facility photos (pass 4)</p>
+    <figure class="photo">
+      <img src="assets/Upstream/sls-launch.jpg" alt="NASA's Space Launch System lifting off on Artemis II, reflected in water." loading="lazy">
+      <figcaption>Artemis II lifts off — SHMS rode inside the Orion Stage Adapter and deployed after separation.</figcaption>
+    </figure>
   </section>
 
   <section id="research" class="block">
@@ -209,8 +222,17 @@
 
   <section id="gallery" class="block">
     <h2 class="block-title">Gallery</h2>
-    <!-- PASS 4: photo gallery -->
-    <p class="pass-ph">Photo gallery (pass 4)</p>
+    <!-- Photo gallery (pass 4) -->
+    <div class="gallery">
+      <figure>
+        <img src="assets/Upstream/cleanroom.jpg" alt="A gowned technician inspecting the SHMS satellite in the clean room." loading="lazy">
+        <figcaption>Clean-room inspection during integration.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/Upstream/integration-highbay.jpg" alt="Caliper measurement of the SHMS satellite during integration." loading="lazy">
+        <figcaption>Dimensional checks on the satellite during the AIT campaign.</figcaption>
+      </figure>
+    </div>
   </section>
 
   <section id="competency" class="block">
