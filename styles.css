@@ -300,6 +300,27 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   margin: 0;
 }
 
+/* Header tagline (serif italic, like the home hero tagline) + dateline. */
+.page-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  line-height: 1.4;
+  color: var(--accent);
+  margin: 0 0 1.25rem;
+}
+
+.page-meta {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+  max-width: 46rem;
+  margin: 0;
+}
+
 .page-out {
   margin: 1.75rem 0 0;
 }
@@ -340,8 +361,46 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   font-style: italic;
 }
 
+/* ---------- Pass placeholder ----------
+   Build scaffolding: an obviously-temporary, dashed block naming what
+   fills a section and in which pass. Removed as passes land. Uses only
+   existing tokens — no new fonts or accent colors. */
+.pass-ph {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 0.9rem;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-raised);
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.pass-ph::before {
+  content: "Placeholder";
+  flex: none;
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+}
+
 .back-link {
   margin: clamp(2.5rem, 6vh, 4rem) 0 0;
+}
+.back-link--top {
+  margin: 0 0 2.25rem;
 }
 .back-link a {
   font-family: var(--sans);
