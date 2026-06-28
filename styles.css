@@ -268,8 +268,8 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
 }
 
 .page-head {
-  margin-bottom: clamp(3rem, 7vh, 5rem);
-  padding-bottom: 2.5rem;
+  margin-bottom: clamp(1.75rem, 4vh, 3rem);
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -339,7 +339,7 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
 /* ---------- Content blocks ---------- */
 
 .block {
-  padding: 2.5rem 0;
+  padding: 1.5rem 0;
   border-bottom: 1px solid var(--rule-soft);
 }
 .block:last-of-type { border-bottom: none; }
