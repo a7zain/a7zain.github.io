@@ -856,3 +856,55 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   .nav-links a { font-size: 0.56rem; letter-spacing: 0.04em; }
   .nav-links a[aria-current="page"] { border-bottom-width: 1px; padding-bottom: 3px; }
 }
+
+/* ============================================================
+   SHMS section — two-column sticky-image prototype (pass 4 layout)
+   Contained, viewport-centered breakout capped at --content-width —
+   NOT full-bleed (see commit note). No transform is used in the
+   ancestor chain, so position: sticky on the image keeps working.
+   All rules are scoped to .block--split; no other section changes.
+   ============================================================ */
+.block--split {
+  --split-w: min(var(--content-width), 100vw - 2 * var(--gutter));
+  width: var(--split-w);
+  margin-left: calc(50% - var(--split-w) / 2);
+}
+.block--split .shms-split {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  column-gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+.block--split .shms-split__text { grid-column: 1; grid-row: 1; }
+/* The section is wide, but the line length is not: the measure stays
+   readable. The extra width goes to layout and image, never the text. */
+.block--split .shms-split__text .prose,
+.block--split .shms-split__text .prose-statement { max-width: 64ch; }
+.block--split .shms-split__media {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--nav-height) + 1.5rem);
+  margin: 0;
+}
+.block--split .shms-split__media img { max-height: 520px; }
+
+/* Mobile: collapse to one stacked column (image above text), and
+   disable both the sticky behavior and the horizontal breakout. */
+@media (max-width: 768px) {
+  .block--split {
+    --split-w: auto;
+    width: auto;
+    margin-left: 0;
+  }
+  .block--split .shms-split { display: block; }
+  .block--split .shms-split__media {
+    position: static;
+    grid-column: auto;
+    grid-row: auto;
+    margin: 0 0 1.5rem;
+  }
+  .block--split .shms-split__text .prose,
+  .block--split .shms-split__text .prose-statement { max-width: none; }
+}
