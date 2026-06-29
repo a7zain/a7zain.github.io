@@ -519,19 +519,22 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
 .ribbon {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
+  grid-template-rows: auto auto auto; /* phase / depth / tool — shared across all segments */
+  column-gap: 0.5rem;
+  row-gap: 0.55rem;
   margin-top: 1.5rem;
 }
 .ribbon-seg {
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
+  display: grid;
+  grid-row: 1 / -1;            /* span all three shared rows */
+  grid-template-rows: subgrid; /* so title, pill, and tool align across every segment */
   min-width: 0;
   padding: 1rem 0.9rem 1.1rem;
   border: 1px solid var(--rule);
   border-radius: 4px;
   background: var(--bg-raised);
 }
+.ribbon-phase { align-self: start; }
 .ribbon-phase {
   font-family: var(--sans);
   font-weight: 600;
@@ -540,7 +543,8 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   color: var(--text);
 }
 .ribbon-depth {
-  align-self: flex-start;
+  justify-self: start;
+  align-self: start;
   font-family: var(--sans);
   font-size: 0.6rem;
   font-weight: 600;
@@ -729,7 +733,8 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
 
 /* Ribbon + timeline reflow on narrow screens (no squashing). */
 @media (max-width: 700px) {
-  .ribbon { grid-template-columns: 1fr; gap: 0.6rem; }
+  .ribbon { grid-template-columns: 1fr; grid-template-rows: none; gap: 0.6rem; }
+  .ribbon-seg { display: flex; flex-direction: column; gap: 0.55rem; grid-row: auto; }
 
   .timeline { display: block; margin-top: 1.25rem; }
   .timeline-node {
@@ -869,6 +874,9 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   width: var(--split-w);
   margin-left: calc(50% - var(--split-w) / 2);
 }
+/* A top-level prose block in a wide split section (the lifecycle intro)
+   keeps a readable measure even though the section spans full width. */
+.block--split > .prose { max-width: 64ch; }
 .block--split .split {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
@@ -933,4 +941,51 @@ a:hover { color: var(--accent-hi); border-bottom-color: var(--accent-hi); }
   .block--split .split__text .prose,
   .block--split .split__text .prose-statement { max-width: none; }
   .qual-gallery { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Side section navigator — fixed dot-rail to jump between
+   sections. Labels reveal on hover; the active dot tracks the
+   section in view (IntersectionObserver). Hidden below 1200px.
+   ============================================================ */
+.block { scroll-margin-top: calc(var(--nav-height) + 1rem); }
+
+.section-rail {
+  position: fixed;
+  top: 50%;
+  right: clamp(0.5rem, 1.6vw, 1.4rem);
+  transform: translateY(-50%);
+  z-index: 90;
+}
+.section-rail ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.1rem;
+}
+.section-rail a {
+  display: flex; align-items: center; justify-content: flex-end; gap: 0.55rem;
+  padding: 0.26rem 0; border: none; color: var(--muted);
+}
+.section-rail a:hover { color: var(--accent-hi); }
+.rail-dot {
+  width: 8px; height: 8px; flex: none; border-radius: 50%;
+  border: 1px solid currentColor; background: transparent;
+  transition: background 150ms ease, transform 150ms ease, border-color 150ms ease;
+}
+.rail-name {
+  font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.04em;
+  white-space: nowrap; color: var(--text);
+  background: var(--bg-raised); border: 1px solid var(--rule-soft);
+  padding: 0.15rem 0.5rem; border-radius: 4px; pointer-events: none;
+  opacity: 0; transform: translateX(8px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+.section-rail a:hover .rail-name { opacity: 1; transform: none; }
+.section-rail li.is-active a { color: var(--accent); }
+.section-rail li.is-active .rail-dot {
+  background: var(--accent); border-color: var(--accent); transform: scale(1.3);
+}
+
+@media (max-width: 1200px) { .section-rail { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .rail-dot, .rail-name { transition: none; }
 }

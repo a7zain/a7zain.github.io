@@ -122,7 +122,7 @@
     </div>
   </section>
 
-  <section id="lifecycle" class="block">
+  <section id="lifecycle" class="block block--split">
     <h2 class="block-title">Across the satellite lifecycle</h2>
     <div class="prose">
       <p>I deliberately sought exposure across the full arc of a satellite program rather than depth in a single box. What follows maps where I worked, and how deeply.</p>
@@ -161,10 +161,18 @@
       </div>
     </div>
     <p class="ribbon-caption">Colour intensity marks depth of involvement.</p>
+    <div class="split">
+    <figure class="photo split__media">
+      <img src="assets/Upstream/assembly-integration.jpg" alt="Satellite assembly and integration bay — a clean tent with an overhead handling gantry." loading="lazy">
+      <figcaption>Assembly &amp; integration — the clean-tent handling bay.</figcaption>
+    </figure>
+    <div class="split__text">
     <div class="prose">
       <p><strong>Mission analysis.</strong> During the cooperative phase I produced a series of mission-analysis studies, working in GMAT, STK, MATLAB, and Copernicus. I modelled a trans-lunar transfer trajectory in GMAT; ran an Earth-observation coverage study over Riyadh; and built a constellation trade study for national coverage, comparing three-, six-, and twelve-satellite architectures against revisit time, coverage fraction, orbital inclination, and altitude to find the point where added satellites stopped buying meaningful revisit. I analyzed ground-station access windows, and developed a communications link budget for a CubeSat downlink across UHF, S-band, and X-band — solving for pass duration, achievable data rate, daily imagery volume, and the best ground-station siting. These were the analyses that taught me to think about a spacecraft as a system of competing budgets before it is ever bent metal.</p>
       <p><strong>Systems engineering and subsystems.</strong> I rotated through the mission teams in two-to-four-week blocks, working alongside engineers in systems, attitude determination and control, electrical power, and communications. In the systems group I worked on requirements and interface definitions, contributed to trade studies, and sat in on design-review gates. In the subsystem rotations I went concrete: sensors and actuators on the ADCS side, battery and solar power budgeting on EPS, and RF band selection and ground-link planning on communications. The point was fluency — to be able to speak each subsystem's language at the interfaces where they meet.</p>
       <p><strong>Assembly, integration, and qualification.</strong> This is where the training became hands-on in a way analysis never is. Over roughly two months I took part in the assembly, integration, and test campaign for the satellite, working across subsystems rather than within one — harnessing, functional testing, and ADCS work among them — and through the environmental qualification campaign, including thermal and vibration testing. The work ran in an ISO Class 7 clean room, and it began with a week of clean-room and laboratory training: ESD discipline, full gowning, foreign-object-debris control, airborne-particle and temperature-and-humidity monitoring, strict material control, and documented IPA and lint-free cleaning against inspection logs. I worked with mechanical and electrical ground support equipment and ran functional and RF tests on Rohde &amp; Schwarz instrumentation, executed test procedures, and logged anomalies — all to NASA standards. Watching a qualification campaign turn a stack of subsystems into flight-representative hardware is the part of this field you cannot learn from a textbook.</p>
+    </div>
+    </div>
     </div>
   </section>
 
@@ -318,6 +326,23 @@
 
   <p class="back-link"><a href="index.html">&larr; Back to home</a></p>
 
+  <!-- Side section navigator (pass 4 layout) -->
+  <nav class="section-rail" aria-label="Jump to section">
+    <ul>
+      <li><a href="#origin"><span class="rail-name">Origin</span><span class="rail-dot"></span></a></li>
+      <li><a href="#background"><span class="rail-name">Saudi program</span><span class="rail-dot"></span></a></li>
+      <li><a href="#earned"><span class="rail-name">Earning the seat</span><span class="rail-dot"></span></a></li>
+      <li><a href="#lifecycle"><span class="rail-name">Lifecycle</span><span class="rail-dot"></span></a></li>
+      <li><a href="#artifacts"><span class="rail-name">Mission analysis</span><span class="rail-dot"></span></a></li>
+      <li><a href="#shms"><span class="rail-name">SHMS</span><span class="rail-dot"></span></a></li>
+      <li><a href="#research"><span class="rail-name">Research</span><span class="rail-dot"></span></a></li>
+      <li><a href="#recognition"><span class="rail-name">Recognition</span><span class="rail-dot"></span></a></li>
+      <li><a href="#gallery"><span class="rail-name">Gallery</span><span class="rail-dot"></span></a></li>
+      <li><a href="#competency"><span class="rail-name">Competencies</span><span class="rail-dot"></span></a></li>
+      <li><a href="#affiliations"><span class="rail-name">Affiliations</span><span class="rail-dot"></span></a></li>
+    </ul>
+  </nav>
+
 </main>
 
 <footer class="site-footer">
@@ -330,6 +355,45 @@
     <p class="footer-line">Ahmed Zainaddin &middot; Dammam &middot; 2026</p>
   </div>
 </footer>
+
+<script>
+(function () {
+  var rail = document.querySelector('.section-rail');
+  if (!rail) return;
+  var items = {}, targets = [];
+  Array.prototype.slice.call(rail.querySelectorAll('a')).forEach(function (a) {
+    var id = a.getAttribute('href').slice(1);
+    items[id] = a.parentElement;
+    var sec = document.getElementById(id);
+    if (sec) targets.push(sec);
+  });
+  function setActive(id) {
+    for (var k in items) items[k].classList.toggle('is-active', k === id);
+  }
+  var ticking = false;
+  function update() {
+    ticking = false;
+    if (!targets.length) return;
+    var doc = document.documentElement;
+    if (window.innerHeight + Math.ceil(window.scrollY) >= doc.scrollHeight - 2) {
+      setActive(targets[targets.length - 1].id); return;
+    }
+    var line = 140;
+    var current = targets[0].id;
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i].getBoundingClientRect().top <= line) current = targets[i].id;
+      else break;
+    }
+    setActive(current);
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+})();
+</script>
 
 </body>
 </html>
