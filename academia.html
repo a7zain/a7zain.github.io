@@ -3,12 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Academia — Ahmed Zainaddin</title>
-<meta name="description" content="Academia — graduate study and applied machine learning for earth observation.">
+<title>About Me — Ahmed Zainaddin</title>
+<meta name="description" content="About Me — Ahmed Zainaddin, an electrical engineer working both ends of the space value chain, from satellite hardware to Earth observation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* ============================================================
+     About page — page-scoped components (Education / Experience /
+     Certificates / Skills accordion, plus content lists).
+     Vanilla CSS, existing tokens only — no new palette or type
+     scale. No CSS transform on any wrapping container (keeps
+     position: sticky working on sibling pages).
+     ============================================================ */
+
+  /* Always-visible intro: readable measure inside the reading column. */
+  .about-intro .prose { max-width: 64ch; }
+
+  /* ---------- Accordion (editorial, not bootstrap) ---------- */
+  .accordion {
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .acc-item { border-bottom: 1px solid var(--rule); }
+
+  .acc-heading { margin: 0; }
+
+  .acc-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.2rem 0;
+    margin: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    transition: color 160ms ease;
+  }
+  .acc-trigger:hover { color: var(--accent-hi); }
+
+  /* +/− indicator, drawn from the accent. Collapses to a minus when open. */
+  .acc-icon {
+    position: relative;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+    transition: color 160ms ease;
+  }
+  .acc-icon::before,
+  .acc-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: currentColor;
+    transition: opacity 220ms ease, transform 220ms ease;
+  }
+  .acc-icon::before { width: 15px; height: 1.5px; transform: translate(-50%, -50%); }
+  .acc-icon::after  { width: 1.5px; height: 15px; transform: translate(-50%, -50%); }
+  .acc-item.is-open .acc-icon { color: var(--accent-hi); }
+  .acc-item.is-open .acc-icon::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+
+  /* Smooth height via animatable grid rows — no transform involved. */
+  .acc-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 320ms ease;
+  }
+  .acc-item.is-open .acc-panel { grid-template-rows: 1fr; }
+  .acc-panel-inner { overflow: hidden; min-height: 0; }
+  .acc-panel-content { padding: 0.25rem 0 1.7rem; max-width: 64ch; }
+
+  /* ---------- Accordion content ---------- */
+  .acc-org {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: var(--text);
+    margin: 0 0 0.6rem;
+  }
+  .edu-list {
+    margin: 0;
+    padding-left: 1.4rem;
+    color: var(--text);
+  }
+  .edu-list li { margin: 0 0 0.45rem; line-height: 1.6; }
+  .edu-list li:last-child { margin-bottom: 0; }
+  .ph-text { color: var(--muted); font-style: italic; }
+
+  .xp { margin: 0 0 1.9rem; }
+  .xp:last-child { margin-bottom: 0; }
+  .xp-role {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.35;
+    color: var(--text);
+    margin: 0 0 0.25rem;
+  }
+  .xp-meta {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    margin: 0 0 0.75rem;
+  }
+  .xp-points,
+  .cert-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--text);
+  }
+  .xp-points li,
+  .cert-list li {
+    margin: 0 0 0.55rem;
+    line-height: 1.62;
+  }
+  .xp-points li:last-child,
+  .cert-list li:last-child { margin-bottom: 0; }
+
+  .cert-bucket { margin: 0 0 1.6rem; }
+  .cert-bucket:last-child { margin-bottom: 0; }
+  .cert-label {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .skills-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .skills-list li {
+    margin: 0 0 0.95rem;
+    line-height: 1.62;
+    color: var(--muted);
+  }
+  .skills-list li:last-child { margin-bottom: 0; }
+  .skill-cat { color: var(--text); font-weight: 600; }
+
+  /* Direction sub-parts: bold lead-in carries "Academic." / "Professional." */
+  .direction .prose p + p { margin-top: 1.4em; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .acc-panel,
+    .acc-icon,
+    .acc-icon::before,
+    .acc-icon::after { transition: none; }
+  }
+
+  @media (max-width: 720px) {
+    .acc-trigger { font-size: 1.4rem; }
+  }
+</style>
 </head>
 <body>
 
@@ -17,32 +183,153 @@
     <a class="nav-brand" href="index.html">Ahmed Zainaddin</a>
     <ul class="nav-links">
       <li><a href="upstream.html">Upstream</a></li>
-      <li><a href="academia.html" aria-current="page">Academia</a></li>
+      <li><a href="academia.html" aria-current="page">About</a></li>
       <li><a href="downstream.html">Downstream</a></li>
     </ul>
   </div>
 </nav>
 
 <main class="page">
+
   <header class="page-head">
     <p class="page-marker">II</p>
-    <h1 class="page-title">Academia</h1>
-    <p class="page-standfirst">Sharpening the tools. Graduate study and applied ML for earth observation.</p>
+    <h1 class="page-title">About Me</h1>
   </header>
 
-  <section class="block">
-    <h2 class="block-title">Overview</h2>
-    <p class="placeholder">[ content pending ]</p>
+  <section class="block about-intro">
+    <div class="prose">
+      <p>I have always been an observer. As a kid it was astrophotography — staying up to photograph a sky most people slept through, never satisfied with the picture until I understood the thing inside it. Engineering turned out to be that same instinct with better tools, and every step since has, one way or another, been about finding a sharper way to see.</p>
+      <p>I studied electrical engineering in Colorado because I wanted the physics behind what I'd been pointing a camera at, and I came home — first to Riyadh, then back to the Eastern Province — to put it to work where it matters to me. Engineering never let me stay in one lane, and I never wanted it to: I've worked on power systems and renewable-energy design, on the field side of oil and gas, and on satellite hardware — the requirements, the reviews, the qualification campaign that takes a design from a drawing to something proven fit to fly. At KACST and the Saudi Space Agency I learned what it actually takes to build for space, and that the discipline of it suits me.</p>
+      <p>The turn I didn't expect came from looking the other way. I'd always thought of myself as an observer of nature; space engineering showed me the most powerful nature-observation instruments ever built are already in orbit, pointed back at us. The same fleet I'd been treating as hardware was quietly recording the planet — the seasonal rise and fall of vegetation, water vapor moving across the peninsula, the routes birds repeat year after year without fail. Earth observation is where my curiosity sits now, and I have far more questions than answers, which is exactly how I prefer to start.</p>
+      <p>So I've built deliberately toward both ends of the same work: the hardware that goes up and the data that comes back down. What draws me is the seam where one system hands off to another — where what we build meets what we can actually measure — and I came home to do that here, in a space sector still deciding what it wants to be. I want to be part of deciding.</p>
+    </div>
+  </section>
+
+  <section class="block" aria-label="Background detail">
+    <div class="accordion">
+
+      <div class="acc-item">
+        <h2 class="acc-heading">
+          <button class="acc-trigger" id="acc-trigger-education" aria-expanded="false" aria-controls="acc-panel-education">
+            <span class="acc-label">Education</span>
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="acc-panel" id="acc-panel-education" role="region" aria-labelledby="acc-trigger-education">
+          <div class="acc-panel-inner">
+            <div class="acc-panel-content">
+              <p class="acc-org">University of Colorado Boulder</p>
+              <ol class="edu-list">
+                <li>B.S. Electrical Engineering — <span class="ph-text">(projects to be added)</span></li>
+                <li>Minor in Engineering Management — <span class="ph-text">(projects to be added)</span></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <h2 class="acc-heading">
+          <button class="acc-trigger" id="acc-trigger-experience" aria-expanded="false" aria-controls="acc-panel-experience">
+            <span class="acc-label">Experience</span>
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="acc-panel" id="acc-panel-experience" role="region" aria-labelledby="acc-trigger-experience">
+          <div class="acc-panel-inner">
+            <div class="acc-panel-content">
+              <article class="xp">
+                <h3 class="xp-role">KACST &amp; Saudi Space Agency — Space Technologies Program</h3>
+                <p class="xp-meta">Riyadh · Aug 2025 – Jan 2026</p>
+                <ul class="xp-points">
+                  <li>Three-month COOP at KACST, then carried over as the sole trainee for a two-month technical program at the SSA</li>
+                  <li>Satellite systems engineering: system-level requirements and review documentation (MDR / PDR / CDR)</li>
+                  <li>Communications/RF: subsystem testing, RF-chain performance evaluation, OBC, and comms documentation</li>
+                  <li>SHMS qualification campaign: worked the qualification model end to end — assembly, integration, functional checks, and environmental testing (RF/EMC on Rohde &amp; Schwarz, vibration on Data Physics SignalForce)</li>
+                </ul>
+              </article>
+              <article class="xp">
+                <h3 class="xp-role">Electrical Engineer — Hamed Alotaibi Company</h3>
+                <p class="xp-meta">Oil &amp; Gas · Eastern Province · Jan 2026 – Present</p>
+                <ul class="xp-points">
+                  <li>Inspection and maintenance of electrical systems and power distribution; findings documented in technical reports</li>
+                  <li>Systems-design and facility-management drawings in AutoCAD</li>
+                  <li>Safety/QA coordination toward Saudi Civil Defence certification</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <h2 class="acc-heading">
+          <button class="acc-trigger" id="acc-trigger-certificates" aria-expanded="false" aria-controls="acc-panel-certificates">
+            <span class="acc-label">Certificates &amp; Coursework</span>
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="acc-panel" id="acc-panel-certificates" role="region" aria-labelledby="acc-trigger-certificates">
+          <div class="acc-panel-inner">
+            <div class="acc-panel-content">
+              <div class="cert-bucket">
+                <p class="cert-label">Earned</p>
+                <ul class="cert-list">
+                  <li>Google Cybersecurity Professional Certificate — cybersecurity fundamentals, network security, and Python across the security workflow.</li>
+                  <li>NASA ARSET — Applied Remote Sensing Training: Fundamentals of Remote Sensing · Hyperspectral Data for Land and Coastal Systems · Developing Sustainable Earth Science Applications.</li>
+                  <li>KACST / SSA Space Technologies Program — completion of the COOP + SSA technical program (detailed under Experience).</li>
+                </ul>
+              </div>
+              <div class="cert-bucket">
+                <p class="cert-label">In progress</p>
+                <ul class="cert-list">
+                  <li>Machine Learning, self-study toward the EO/ML pivot — Andrew Ng's Machine Learning Specialization (Course 1 underway) alongside the book "Why Machines Learn". Building the ML foundation deliberately, ahead of graduate study.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <h2 class="acc-heading">
+          <button class="acc-trigger" id="acc-trigger-skills" aria-expanded="false" aria-controls="acc-panel-skills">
+            <span class="acc-label">Skills</span>
+            <span class="acc-icon" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="acc-panel" id="acc-panel-skills" role="region" aria-labelledby="acc-trigger-skills">
+          <div class="acc-panel-inner">
+            <div class="acc-panel-content">
+              <ul class="skills-list">
+                <li><span class="skill-cat">Systems &amp; spacecraft engineering</span> — requirements and verification, interface definition (ICDs), design reviews (MDR / PDR / CDR), assembly · integration · test, environmental qualification (thermal-vacuum, vibration, EMC)</li>
+                <li><span class="skill-cat">RF &amp; communications</span> — RF-chain testing and performance evaluation, EMC test, link analysis</li>
+                <li><span class="skill-cat">Earth observation &amp; data</span> — Google Earth Engine, remote-sensing workflows, satellite-imagery analysis, Python</li>
+                <li><span class="skill-cat">Power &amp; electronics</span> — power systems and distribution, renewable-energy modeling (HOMER Pro), PCB design, embedded systems, prototyping (soldering, 3D printing, laser cutting)</li>
+                <li><span class="skill-cat">Tools</span> — Python · C/C++ · MATLAB · Altium · AutoCAD · STK / GMAT</li>
+                <li><span class="skill-cat">Languages</span> — English · Arabic · basic Italian</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
   <section class="block">
-    <h2 class="block-title">Selected work</h2>
-    <p class="placeholder">[ content pending ]</p>
+    <h2 class="block-title">Hobbies</h2>
+    <div class="prose">
+      <p>Wildlife photography, reading, traveling, and cycling. The camera has stayed with me since the astrophotography days — these days it mostly points at wildlife instead of the night sky.</p>
+    </div>
   </section>
 
-  <section class="block">
-    <h2 class="block-title">Images</h2>
-    <p class="placeholder">[ content pending ]</p>
+  <section class="block direction">
+    <h2 class="block-title">Direction</h2>
+    <div class="prose">
+      <p><strong>Academic.</strong> I'm pursuing a master's to formalize the move into machine learning and Earth observation — applications are in to KAUST Academy's ML program, George Mason, Edinburgh, and Glasgow. The aim is to turn the EO work I've been teaching myself into something rigorous.</p>
+      <p><strong>Professional.</strong> I want to build a career in the Saudi space sector across both ends of the value chain — the systems and qualification work upstream, the Earth-observation and analytics work downstream. The national strategy is investing heavily in downstream data capability, and that's exactly the seam I've been preparing for.</p>
+    </div>
   </section>
 
   <p class="back-link"><a href="index.html">&larr; Back</a></p>
@@ -58,6 +345,20 @@
     <p class="footer-line">Ahmed Zainaddin &middot; Dammam &middot; 2026</p>
   </div>
 </footer>
+
+<script>
+(function () {
+  var triggers = document.querySelectorAll('.acc-trigger');
+  Array.prototype.forEach.call(triggers, function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.acc-item');
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      if (item) item.classList.toggle('is-open', !open);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
